@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace xingapi_bridge
     public partial class Form1 : Form
     {
         protected XingSessionCtrl m_Session;
-        protected t8435 t_8435 = new t8435();
+        protected JonMokQuery _jonMokQuery = new JonMokQuery();
+        protected Order _order = new Order();
         public Form1()
         {
             InitializeComponent();
@@ -24,28 +26,48 @@ namespace xingapi_bridge
             UI.console_event += Update_ConsoleLog;
         }
 
-        private void login_text_btn_Click(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            m_Session.m_session.ConnectServer("demo.etrade.co.kr", 12000);
-            m_Session.m_session.Login("skinnine", "1a1a1a1a", "", 0, true);
-        }
-
-        private void Update_ConsoleLog(object sender, string msg)
-        {
-            this.console.AppendText(msg);
-        }
-
-
-
-        private void buy_btn_Click(object sender, EventArgs e)
-        {
-
+            base.OnLoad(e);
+            if (!File.Exists("./user_info.txt"))
+            {
+                MessageBox.Show("user_info.txt 파일이 없거나 해당경로에 없습니다. 확인해주세요", "ERROR", MessageBoxButtons.OK);
+                this.Close();
+            }
+            
+            string[] user_info = File.ReadAllLines("./user_info.txt");
+            User_Info.mode = user_info[0].Split(new char[] { ':' })[1].Trim();
+            User_Info.id = user_info[1].Split(new char[] {':'})[1].Trim();
+            User_Info.passwd = user_info[2].Split(new char[] { ':' })[1].Trim();
+            User_Info.ckpt_passwd = user_info[3].Split(new char[] { ':' })[1].Trim();
+            User_Info.account = user_info[4].Split(new char[] { ':' })[1].Trim();
+            if (User_Info.mode == "real")
+            {
+                UI.SendConsoleMsg(this, "실제 서버 접속");
+                m_Session.XaSession.ConnectServer("hts.etrade.co.kr", 20001);
+            }
+            else if (User_Info.mode == "test")
+            {
+                UI.SendConsoleMsg(this, "모의투자 서버 접속");
+                m_Session.XaSession.ConnectServer("demo.etrade.co.kr", 20001);
+            }
+            m_Session.XaSession.Login(User_Info.id, User_Info.passwd, User_Info.ckpt_passwd, 1, true);
         }
 
         private void test_btn_Click(object sender, EventArgs e)
         {
-            t_8435.query.SetFieldData("t8435InBlock", "gubun", 0, "SF");
-            t_8435.query.Request(true);
+            _order.Ordering(Order.OrderType.Buy, User_Info.jongmok, Order.hogaType.Price, "1260.5", "1");
+        }
+
+        private void Update_ConsoleLog(object sender, string msg)
+        {
+            consoleview.AppendText(msg + "\n");
+            //Console.WriteLine(msg);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _jonMokQuery.GetJongMokCode();
         }
     }
     public class UI
@@ -59,4 +81,5 @@ namespace xingapi_bridge
             }
         }
     }
+    
 }

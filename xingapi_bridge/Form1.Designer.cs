@@ -28,41 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.login_text_btn = new System.Windows.Forms.Button();
-            this.console = new System.Windows.Forms.TextBox();
-            this.buy_btn = new System.Windows.Forms.Button();
             this.test_btn = new System.Windows.Forms.Button();
+            this.consoleview = new System.Windows.Forms.RichTextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // login_text_btn
-            // 
-            this.login_text_btn.Location = new System.Drawing.Point(24, 25);
-            this.login_text_btn.Name = "login_text_btn";
-            this.login_text_btn.Size = new System.Drawing.Size(115, 37);
-            this.login_text_btn.TabIndex = 0;
-            this.login_text_btn.Text = "로그인 테스트";
-            this.login_text_btn.UseVisualStyleBackColor = true;
-            this.login_text_btn.Click += new System.EventHandler(this.login_text_btn_Click);
-            // 
-            // console
-            // 
-            this.console.Location = new System.Drawing.Point(-2, 319);
-            this.console.Multiline = true;
-            this.console.Name = "console";
-            this.console.ReadOnly = true;
-            this.console.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.console.Size = new System.Drawing.Size(802, 127);
-            this.console.TabIndex = 1;
-            // 
-            // buy_btn
-            // 
-            this.buy_btn.Location = new System.Drawing.Point(226, 25);
-            this.buy_btn.Name = "buy_btn";
-            this.buy_btn.Size = new System.Drawing.Size(106, 37);
-            this.buy_btn.TabIndex = 2;
-            this.buy_btn.Text = "가짜주문버튼";
-            this.buy_btn.UseVisualStyleBackColor = true;
-            this.buy_btn.Click += new System.EventHandler(this.buy_btn_Click);
             // 
             // test_btn
             // 
@@ -74,28 +43,43 @@
             this.test_btn.UseVisualStyleBackColor = true;
             this.test_btn.Click += new System.EventHandler(this.test_btn_Click);
             // 
+            // consoleview
+            // 
+            this.consoleview.Location = new System.Drawing.Point(12, 267);
+            this.consoleview.Name = "consoleview";
+            this.consoleview.ReadOnly = true;
+            this.consoleview.Size = new System.Drawing.Size(776, 171);
+            this.consoleview.TabIndex = 4;
+            this.consoleview.Text = "";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(24, 29);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.consoleview);
             this.Controls.Add(this.test_btn);
-            this.Controls.Add(this.buy_btn);
-            this.Controls.Add(this.console);
-            this.Controls.Add(this.login_text_btn);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button login_text_btn;
-        private System.Windows.Forms.TextBox console;
-        private System.Windows.Forms.Button buy_btn;
         private System.Windows.Forms.Button test_btn;
+        private System.Windows.Forms.RichTextBox consoleview;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -1,0 +1,6 @@
+mode:test
+id:skinnine
+passwd:qwe123
+ckpasswd:
+account:55551036869
+account paswd:1234

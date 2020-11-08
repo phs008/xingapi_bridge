@@ -10,23 +10,23 @@ namespace xingapi_bridge
 {
     public class XingSessionCtrl : _IXASessionEvents
     {
-        public IXASession m_session;
+        public IXASession XaSession;
         protected IConnectionPoint m_icp;
         protected IConnectionPointContainer m_icpc;
         protected int m_dwCookie;
 
         public XingSessionCtrl()
         {
-            m_session = new XASession();
-            m_icpc = (IConnectionPointContainer)m_session;
+            XaSession = new XASession();
+            m_icpc = (IConnectionPointContainer)XaSession;
             Guid IID_SessionEvents = typeof(_IXASessionEvents).GUID;
             m_icpc.FindConnectionPoint(ref IID_SessionEvents, out m_icp);
             m_icp.Advise(this, out m_dwCookie);
         }
         ~XingSessionCtrl()
         {
-            m_session.Logout();
-            m_session.DisconnectServer();
+            XaSession.Logout();
+            XaSession.DisconnectServer();
         }
         public void Login(string szCode, string szMsg)
         {
